@@ -1,7 +1,10 @@
+\# Train stations and train in India, data issues
+=================================================
+
 Introduction
 ============
 
-For the CHAI project I wanted to look whether there were trains in our study area. Moreover I was curious about two data sources:
+For the CHAI project <http://www.chaiproject.org/> I wanted to look whether there were trains in our study area. Besides, I was curious about two data sources:
 
 -   The Open Government Data (OGD) Platform of India <https://data.gov.in/>
 
@@ -14,19 +17,20 @@ In this README I'll explain where I got the data I decided to use, and which pro
 Getting and preparing the trains timetable
 ==========================================
 
-I used a different source than curiousanalytics. I used this train timetable from the OGD Platform of India: <https://data.gov.in/catalog/indian-railways-train-time-table-0> I tried to download the data from the API using the `ogdindiar` package <https://github.com/steadyfish/ogdindiar> but I got an error message from the server so I downloaded the data by hand. I then loaded it using the code in R\_code/getting\_train\_timetable.R
+I used a different source than curiousanalytics. I used this train timetable from the OGD Platform of India: <https://data.gov.in/catalog/indian-railways-train-time-table-0> I tried to download the data from the API using the `ogdindiar` package <https://github.com/steadyfish/ogdindiar> but I got an error message from the server so I downloaded the data by hand. I then loaded it using the code in \[this R code\]((R\_code/getting\_train\_timetable.R)
 
 The data look like this:
 
-| trainNo    | trainName          |    islno| stationCode   | stationName   |  arrivalTime|  departureTime|  distance| sourceStationCode | sourceStationName | destStationCode | destStationName |  hourDeparture| numDeparture |
-|:-----------|:-------------------|--------:|:--------------|:--------------|------------:|--------------:|---------:|:------------------|:------------------|:----------------|:----------------|--------------:|:-------------|
-| 00851      | BNC SUVIDHA SPL    |        1| BBS           | BHUBANESWAR   |           0S|     22H 50M 0S|         0| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |             22| 22H 50M 0S   |
-| 00851      | BNC SUVIDHA SPL    |        2| BAM           | BRAHMAPUR     |    1H 10M 0S|      1H 12M 0S|       166| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |              1| 1H 12M 0S    |
-| 00851      | BNC SUVIDHA SPL    |        3| VSKP          | VISAKHAPATNAM |    5H 10M 0S|      5H 30M 0S|       443| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |              5| 5H 30M 0S    |
-| 00851      | BNC SUVIDHA SPL    |        4| BZA           | VIJAYAWADA JN |   11H 10M 0S|     11H 20M 0S|       793| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |             11| 11H 20M 0S   |
-| 00851      | BNC SUVIDHA SPL    |        5| RU            | RENIGUNTA JN  |   16H 42M 0S|     16H 52M 0S|      1169| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |             16| 16H 52M 0S   |
-| 00851      | BNC SUVIDHA SPL    |        6| JTJ           | JOLARPETTAI   |   20H 35M 0S|     20H 37M 0S|      1367| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |             20| 20H 37M 0S   |
-| Now, how t | o get geographical |  coordin| ates for each | station?      |             |               |          |                   |                   |                 |                 |               |              |
+| trainNo | trainName       |  islno| stationCode | stationName   |  arrivalTime|  departureTime|  distance| sourceStationCode | sourceStationName | destStationCode | destStationName |  hourDeparture| numDeparture |
+|:--------|:----------------|------:|:------------|:--------------|------------:|--------------:|---------:|:------------------|:------------------|:----------------|:----------------|--------------:|:-------------|
+| 00851   | BNC SUVIDHA SPL |      1| BBS         | BHUBANESWAR   |           0S|     22H 50M 0S|         0| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |             22| 22H 50M 0S   |
+| 00851   | BNC SUVIDHA SPL |      2| BAM         | BRAHMAPUR     |    1H 10M 0S|      1H 12M 0S|       166| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |              1| 1H 12M 0S    |
+| 00851   | BNC SUVIDHA SPL |      3| VSKP        | VISAKHAPATNAM |    5H 10M 0S|      5H 30M 0S|       443| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |              5| 5H 30M 0S    |
+| 00851   | BNC SUVIDHA SPL |      4| BZA         | VIJAYAWADA JN |   11H 10M 0S|     11H 20M 0S|       793| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |             11| 11H 20M 0S   |
+| 00851   | BNC SUVIDHA SPL |      5| RU          | RENIGUNTA JN  |   16H 42M 0S|     16H 52M 0S|      1169| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |             16| 16H 52M 0S   |
+| 00851   | BNC SUVIDHA SPL |      6| JTJ         | JOLARPETTAI   |   20H 35M 0S|     20H 37M 0S|      1367| BBS               | BHUBANESWAR       | BNC             | BANGALORE CANT  |             20| 20H 37M 0S   |
+
+Now, how to get geographical coordinates for each station?
 
 Getting the coordinates for all stations
 ========================================
