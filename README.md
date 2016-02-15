@@ -122,7 +122,7 @@ It has 69006 rows.
 What do to with such a timetable?
 =================================
 
-One can draw a map with the course of a chosen train and make a gif or a video out of it using the [gganimate package](https://github.com/dgrtwo/gganimate). See the [code](making_a_video_of_a_train).
+One can draw a map with the course of a chosen train and make a gif or a video out of it using the [gganimate package](https://github.com/dgrtwo/gganimate). See the [code](R_code/making_a_video_of_a_train).
 
 Here is an example:
 
