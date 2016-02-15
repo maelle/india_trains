@@ -54,7 +54,7 @@ Openstreetmap info
 
 Then I decided to get all train stations nodes from Openstreetmap. I downloaded the osm.pbf file for India from [Geofabrik](http://download.geofabrik.de/asia/india.html). I filtered only the "railway=station" from this file using [osmosis](http://wiki.openstreetmap.org/wiki/Osmosis). The script is [here](osm_data/osmosis_script.txt). The osm.pbf file is not there because it was too big.
 
-I parsed the OSM XML file using [this code](osm_data/reading_osm_file.R). Here maybe I could have made better use of the xml2 package and also of the osmar package but somehow I found it faster to write this code.
+I parsed the OSM XML file using [this code](R_code/reading_osm_file.R). Here maybe I could have made better use of the xml2 package and also of the osmar package but somehow I found it faster to write this code.
 
 The data look like this:
 
