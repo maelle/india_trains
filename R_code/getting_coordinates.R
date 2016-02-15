@@ -80,3 +80,5 @@ listNames[indices,]$lat <- latNew
 listNames[indices,]$long <- lonNew
 
 save(listNames, file = "geo_data/geoInfo.RData")
+
+# and now add coordinates info to our timetable

@@ -11,19 +11,19 @@ Train stations and train in India, data issues
 
 # Introduction
 
-For the CHAI project <http://www.chaiproject.org/> I wanted to look whether there were trains in our study area. Besides, I was curious about two data sources:
+For the [CHAI project](http://www.chaiproject.org/) I wanted to look whether there were trains in our study area. Besides, I was curious about two data sources:
 
-* The Open Government Data (OGD) Platform of India <https://data.gov.in/>
+* [The Open Government Data (OGD) Platform of India](https://data.gov.in/)
 
-* Openstreetmap <https://www.openstreetmap.org/>
+* [Openstreetmap](https://www.openstreetmap.org/)
 
-I moreover saw this blog article <http://curiousanalytics.blogspot.com.es/2015/04/indian-railways-network-using-r.html> 
+I moreover saw [this blog article](http://curiousanalytics.blogspot.com.es/2015/04/indian-railways-network-using-r.html) from curious analytics.
 
 In this README I'll explain where I got the data I decided to use, and which problems I still have.
 
 # Getting and preparing the timetable
 
-I used a different source than curiousanalytics. I used this train timetable from the OGD Platform of India: <https://data.gov.in/catalog/indian-railways-train-time-table-0> I tried to download the data from the API using the `ogdindiar` package <https://github.com/steadyfish/ogdindiar> but I got an error message from the server so I downloaded the data by hand. I then prepared it using the code in [this R code](R_code/getting_train_timetable.R)
+I used a different source than curiousanalytics. I used [this train timetable](https://data.gov.in/catalog/indian-railways-train-time-table-0) from the OGD Platform of India. I tried to download the data from the API using [the `ogdindiar` package](https://github.com/steadyfish/ogdindiar) but I got an error message from the server so I downloaded the data by hand. I then prepared it using the code in [this R code](R_code/getting_train_timetable.R)
 
 The data look like this:
 
@@ -46,7 +46,7 @@ After doing this I only had geographical coordinates for about 40% of the train 
 
 ## Openstreetmap info
 
-Then I decided to get all train stations nodes from Openstreetmap. I downloaded the osm.pbf file for India from <http://download.geofabrik.de/asia/india.html> I filtered only the "railway=station" from this file using osmosis. The script is [here](osm_data/osmosis_script.txt). The osm.pbf file is not there because it was too big.
+Then I decided to get all train stations nodes from Openstreetmap. I downloaded the osm.pbf file for India from <http://download.geofabrik.de/asia/india.html> I filtered only the "railway=station" from this file using [osmosis](http://wiki.openstreetmap.org/wiki/Osmosis). The script is [here](osm_data/osmosis_script.txt). The osm.pbf file is not there because it was too big.
 
 I parsed the OSM XML file using [this code](osm_data/reading_osm_file.R). Here maybe I could have made better use of the xml2 package and also of the osmar package but somehow I found it faster to write this code.
 
@@ -71,6 +71,19 @@ knitr::kable(head(listNames))
 ```
 
 It has `r nrow(listNames)` rows.
+
+# Complementing the timetable
+
+I added a column for the next station for each station after grouping the data by train id, and I added the coordinates I could identify. I did all this in [this code](R_code/complementing_timetable.R).
+
+The resulting data look like this:
+
+```{r, echo=TRUE, warning = FALSE, message = FALSE}
+load("train_data/complemented_timetable.RData")
+knitr::kable(head(timetableMap))
+```
+
+It has `r nrow(timetableMap)` rows.
 
 # Remaining issues
 

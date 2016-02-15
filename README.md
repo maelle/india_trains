@@ -4,20 +4,20 @@ Train stations and train in India, data issues
 Introduction
 ============
 
-For the CHAI project <http://www.chaiproject.org/> I wanted to look whether there were trains in our study area. Besides, I was curious about two data sources:
+For the [CHAI project](http://www.chaiproject.org/) I wanted to look whether there were trains in our study area. Besides, I was curious about two data sources:
 
--   The Open Government Data (OGD) Platform of India <https://data.gov.in/>
+-   [The Open Government Data (OGD) Platform of India](https://data.gov.in/)
 
--   Openstreetmap <https://www.openstreetmap.org/>
+-   [Openstreetmap](https://www.openstreetmap.org/)
 
-I moreover saw this blog article <http://curiousanalytics.blogspot.com.es/2015/04/indian-railways-network-using-r.html>
+I moreover saw [this blog article](http://curiousanalytics.blogspot.com.es/2015/04/indian-railways-network-using-r.html) from curious analytics.
 
 In this README I'll explain where I got the data I decided to use, and which problems I still have.
 
 Getting and preparing the timetable
 ===================================
 
-I used a different source than curiousanalytics. I used this train timetable from the OGD Platform of India: <https://data.gov.in/catalog/indian-railways-train-time-table-0> I tried to download the data from the API using the `ogdindiar` package <https://github.com/steadyfish/ogdindiar> but I got an error message from the server so I downloaded the data by hand. I then prepared it using the code in [this R code](R_code/getting_train_timetable.R)
+I used a different source than curiousanalytics. I used [this train timetable](https://data.gov.in/catalog/indian-railways-train-time-table-0) from the OGD Platform of India. I tried to download the data from the API using [the `ogdindiar` package](https://github.com/steadyfish/ogdindiar) but I got an error message from the server so I downloaded the data by hand. I then prepared it using the code in [this R code](R_code/getting_train_timetable.R)
 
 The data look like this:
 
@@ -52,7 +52,7 @@ After doing this I only had geographical coordinates for about 40% of the train 
 Openstreetmap info
 ------------------
 
-Then I decided to get all train stations nodes from Openstreetmap. I downloaded the osm.pbf file for India from <http://download.geofabrik.de/asia/india.html> I filtered only the "railway=station" from this file using osmosis. The script is [here](osm_data/osmosis_script.txt). The osm.pbf file is not there because it was too big.
+Then I decided to get all train stations nodes from Openstreetmap. I downloaded the osm.pbf file for India from <http://download.geofabrik.de/asia/india.html> I filtered only the "railway=station" from this file using [osmosis](http://wiki.openstreetmap.org/wiki/Osmosis). The script is [here](osm_data/osmosis_script.txt). The osm.pbf file is not there because it was too big.
 
 I parsed the OSM XML file using [this code](osm_data/reading_osm_file.R). Here maybe I could have made better use of the xml2 package and also of the osmar package but somehow I found it faster to write this code.
 
@@ -95,6 +95,29 @@ knitr::kable(head(listNames))
 | jolarpettai   |  12.57284|  78.57753|
 
 It has 4334 rows.
+
+Complementing the timetable
+===========================
+
+I added a column for the next station for each station after grouping the data by train id, and I added the coordinates I could identify. I did all this in [this code](R_code/complementing_timetable.R).
+
+The resulting data look like this:
+
+``` r
+load("train_data/complemented_timetable.RData")
+knitr::kable(head(timetableMap))
+```
+
+| trainNo | stationName   |      lat1|     long1| nextStationName |      lat2|     long2| trainName       |  islno| stationCode |  arrivalTime|  departureTime|  distance| sourceStationCode | sourceStationName         | destStationCode | destStationName              |  hourDeparture| numDeparture |
+|:--------|:--------------|---------:|---------:|:----------------|---------:|---------:|:----------------|------:|:------------|------------:|--------------:|---------:|:------------------|:--------------------------|:----------------|:-----------------------------|--------------:|:-------------|
+| 00851   | bhubaneswar   |  20.26660|  85.84362| brahmapur       |  19.29639|  84.79705| BNC SUVIDHA SPL |      1| BBS         |           0S|     22H 50M 0S|         0| BBS               | BHUBANESWAR railway India | BNC             | BANGALORE CANT railway India |             22| 22H 50M 0S   |
+| 00851   | brahmapur     |  19.29639|  84.79705| visakhapatnam   |  18.97497|  84.59354| BNC SUVIDHA SPL |      2| BAM         |    1H 10M 0S|      1H 12M 0S|       166| BBS               | BHUBANESWAR railway India | BNC             | BANGALORE CANT railway India |              1| 1H 12M 0S    |
+| 00851   | visakhapatnam |  18.97497|  84.59354| vijayawada      |  15.90394|  80.47232| BNC SUVIDHA SPL |      3| VSKP        |    5H 10M 0S|      5H 30M 0S|       443| BBS               | BHUBANESWAR railway India | BNC             | BANGALORE CANT railway India |              5| 5H 30M 0S    |
+| 00851   | vijayawada    |  15.90394|  80.47232| renigunta       |  13.63660|  79.50659| BNC SUVIDHA SPL |      4| BZA         |   11H 10M 0S|     11H 20M 0S|       793| BBS               | BHUBANESWAR railway India | BNC             | BANGALORE CANT railway India |             11| 11H 20M 0S   |
+| 00851   | renigunta     |  13.63660|  79.50659| jolarpettai     |  12.57284|  78.57753| BNC SUVIDHA SPL |      5| RU          |   16H 42M 0S|     16H 52M 0S|      1169| BBS               | BHUBANESWAR railway India | BNC             | BANGALORE CANT railway India |             16| 16H 52M 0S   |
+| 00851   | jolarpettai   |  12.57284|  78.57753| bangalore cant  |  12.99219|  77.60046| BNC SUVIDHA SPL |      6| JTJ         |   20H 35M 0S|     20H 37M 0S|      1367| BBS               | BHUBANESWAR railway India | BNC             | BANGALORE CANT railway India |             20| 20H 37M 0S   |
+
+It has 69006 rows.
 
 Remaining issues
 ================
