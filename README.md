@@ -52,7 +52,7 @@ After doing this I only had geographical coordinates for about 40% of the train 
 Openstreetmap info
 ------------------
 
-Then I decided to get all train stations nodes from Openstreetmap. I downloaded the osm.pbf file for India from <http://download.geofabrik.de/asia/india.html> I filtered only the "railway=station" from this file using [osmosis](http://wiki.openstreetmap.org/wiki/Osmosis). The script is [here](osm_data/osmosis_script.txt). The osm.pbf file is not there because it was too big.
+Then I decided to get all train stations nodes from Openstreetmap. I downloaded the osm.pbf file for India from [Geofabrik](http://download.geofabrik.de/asia/india.html). I filtered only the "railway=station" from this file using [osmosis](http://wiki.openstreetmap.org/wiki/Osmosis). The script is [here](osm_data/osmosis_script.txt). The osm.pbf file is not there because it was too big.
 
 I parsed the OSM XML file using [this code](osm_data/reading_osm_file.R). Here maybe I could have made better use of the xml2 package and also of the osmar package but somehow I found it faster to write this code.
 
@@ -118,6 +118,15 @@ knitr::kable(head(timetableMap))
 | 00851   | jolarpettai   |  12.57284|  78.57753| bangalore cant  |  12.99219|  77.60046| BNC SUVIDHA SPL |      6| JTJ         |   20H 35M 0S|     20H 37M 0S|      1367| BBS               | BHUBANESWAR railway India | BNC             | BANGALORE CANT railway India |             20| 20H 37M 0S   |
 
 It has 69006 rows.
+
+What do to with such a timetable?
+=================================
+
+One can draw a map with the course of a chosen train and make a video out of it using the gganimate package.
+
+Here is an example:
+
+\[![ScreenShot](video/07703mapOne)
 
 Remaining issues
 ================
