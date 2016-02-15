@@ -87,11 +87,11 @@ It has `r nrow(timetableMap)` rows.
 
 # What do to with such a timetable?
 
-One can draw a map with the course of a chosen train and make a video out of it using the gganimate package.
+One can draw a map with the course of a chosen train and make a video out of it using the gganimate package. See the [code](making_a_video_of_a_train).
 
 Here is an example:
 
-[![ScreenShot](video/07703mapOne)
+[tada](video/07703mapOne.mp4)
 
 # Remaining issues
 
