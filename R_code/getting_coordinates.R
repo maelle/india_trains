@@ -41,8 +41,8 @@ listNames <- unique(c(unique(timetable$stationName),
 
 # priority to coordinates we got from Google maps !
 
-load("geo_data//part1.RData")
-load("geo_data//part2.RData")
+load("geo_data/part1.RData")
+load("geo_data/part2.RData")
 listNames <- rbind(data1, data2)
 listNames <- tbl_df(listNames) %>%
   mutate(name = gsub(" railway India", "", name)) %>%
@@ -50,7 +50,7 @@ listNames <- tbl_df(listNames) %>%
 
 sum(is.na(listNames$lat))
 
-load("data/OSMdataIndiaStations.RData")
+load("osm_data/OSMdataIndiaStations.RData")
 dataIndiaStations <- mutate(dataIndiaStations,
                             name = tolower(name))
 

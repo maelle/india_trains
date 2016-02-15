@@ -15,7 +15,7 @@ names(timetable) <- c("trainNo", "trainName",
                       "sourceStationCode", "sourceStationName",
                       "destStationCode", "destStationName")
 timetable <- timetable%>%
-  # time as time
+  # time as time and no "'" in trainNo
   mutate(arrivalTime = hms(arrivalTime),
          departureTime = hms(departureTime)) %>%
   mutate(hourDeparture = hour(departureTime),
