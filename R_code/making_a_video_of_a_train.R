@@ -5,7 +5,10 @@ library("gganimate")
 library("animation")
 
 load("train_data/complemented_timetable.RData")
-
+indiaMap <- OpenStreetMap::openmap(c(36,65),
+                                   c(6,97),
+                                   type="osm", 
+                                   minNumTiles=9)
 # Some transformations for getting projected coordinates
 # and not having missing data
 timetableMap <- timetableMap %>% filter(!is.na(nextStationName))%>%
@@ -34,7 +37,7 @@ timetableMap$y2[whichNotNA2] <- y2
 
 # Video for one train
 
-number <- "07703"
+number <- "12604"
 
 onetrain <- filter(timetableMap,
                    trainNo == number,
