@@ -23,7 +23,7 @@ In this README I'll explain where I got the data I decided to use, and which pro
 
 # Getting and preparing the trains timetable
 
-I used a different source than curiousanalytics. I used this train timetable from the OGD Platform of India: <https://data.gov.in/catalog/indian-railways-train-time-table-0> I tried to download the data from the API using the `ogdindiar` package <https://github.com/steadyfish/ogdindiar> but I got an error message from the server so I downloaded the data by hand. I then loaded it using the code in [this R code]((R_code/getting_train_timetable.R)
+I used a different source than curiousanalytics. I used this train timetable from the OGD Platform of India: <https://data.gov.in/catalog/indian-railways-train-time-table-0> I tried to download the data from the API using the `ogdindiar` package <https://github.com/steadyfish/ogdindiar> but I got an error message from the server so I downloaded the data by hand. I then loaded it using the code in [this R code](R_code/getting_train_timetable.R)
 
 The data look like this:
 
