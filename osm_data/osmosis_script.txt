@@ -1,0 +1,2 @@
+cd osm_data
+osmosis --read-pbf india.osm.pbf --tf accept-nodes railway=station --tf reject-relations --tf reject-ways --write-xml india_train_stations.osm

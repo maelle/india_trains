@@ -1,0 +1,74 @@
+---
+title: "Getting data about trains in India"
+author: "Maëlle Salmon"
+date: "`r Sys.Date()`"
+output:
+  md_document:
+    variant: markdown_github
+---
+
+
+# Introduction
+
+For the CHAI project I wanted to look whether there were trains in our study area. Moreover I was curious about two data sources:
+
+* The Open Government Data (OGD) Platform of India <https://data.gov.in/>
+
+* Openstreetmap <https://www.openstreetmap.org/>
+
+I moreover saw this blog article <http://curiousanalytics.blogspot.com.es/2015/04/indian-railways-network-using-r.html> 
+
+In this README I'll explain where I got the data I decided to use, and which problems I still have.
+
+# Getting and preparing the trains timetable
+
+I used a different source than curiousanalytics. I used this train timetable from the OGD Platform of India: <https://data.gov.in/catalog/indian-railways-train-time-table-0> I tried to download the data from the API using the `ogdindiar` package <https://github.com/steadyfish/ogdindiar> but I got an error message from the server so I downloaded the data by hand. I then loaded it using the code in R_code/getting_train_timetable.R
+
+The data look like this:
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE}
+load("train_data/train_timetable.RData")
+knitr::kable(head(timetable))
+```
+Now, how to get geographical coordinates for each station?
+
+# Getting the coordinates for all stations
+
+## Google Maps info 
+
+I first used the same approach as curiousanalyics: querying Google Maps via the `geocode` function of the `ggmap` package for getting coordinates for each station name. One can see the code used for this at the beginning of R_code/getting_coordinates.R
+
+After doing this I only had geographical coordinates for about 40% of the train stations.
+
+## Openstreetmap info
+
+Then I decided to get all train stations nodes from Openstreetmap. I downloaded the osm.pbf file for India from <http://download.geofabrik.de/asia/india.html> I filtered only the "railway=station" from this file using osmosis. The script is in osm_data/osmosis_script.txt. The osm.pbf file is not there because it was too big.
+
+I parsed the OSM XML file using the code in osm_data/reading_osm_file.R Here maybe I could have made better use of the xml2 package and also of the osmar package but somehow I found it faster to write this code.
+
+The data look like this:
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE}
+load("osm_data/OSMdataIndiaStations.RData")
+knitr::kable(head(dataIndiaStations))
+```
+
+I gave priority to info I got from Google Maps but for the remaining ones I looked for close matches for names in the OSM data. I defined closes matches as names whose difference measured by the `stringdist` function of the `stringdist` package was 0 or 1. It is a bad solution because clearly doing this I'm giving wrong coordinates to some stations.
+
+# Remaining issues
+
+* How to get coordinates for all stations?
+
+* In general, how to optimally deal with different spellings of Indian locations?
+
+* How should I read OSM files in a more elegant way? 
+
+# Cool stuff I've learnt
+
+* Openstreetmap and the OGD platform of India are goldmines.
+
+* Comparing strings of characters could help with the spelling of Indian locations but also generally in our questionnaire data for dealing with typing errors in the free text areas.
+
+# Acknowledgements
+
+I've read many forums in order to understand Openstreetmap, so thank you to all the people that asked and answered questions on these forums!
