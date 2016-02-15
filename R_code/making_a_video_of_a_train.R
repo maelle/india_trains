@@ -67,5 +67,5 @@ if(nrow(onetrain)>5){
     theme(plot.title = element_text(lineheight=1, face="bold"))
   ani.options(interval = 1, ani.width = 800, ani.height = 800)
   gg_animate(p, paste0("video/", number,"mapOne.mp4"))
-  gg_animate(p, paste0("video/", number,"mapOne.gif"))
+  gg_animate(p, paste0(getwd(),"/video/", number,"mapOne.gif"))
 }
