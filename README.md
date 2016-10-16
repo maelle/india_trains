@@ -1,6 +1,11 @@
 Train stations and train in India, data issues
 ==============================================
 
+Important update
+================
+
+The data I tried to get here is contained in this [awesome dataset](https://github.com/datameet/railways).
+
 Introduction
 ============
 

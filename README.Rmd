@@ -9,6 +9,10 @@ output:
 Train stations and train in India, data issues
 ================================================
 
+# Important update
+
+The data I tried to get here is contained in this [awesome dataset](https://github.com/datameet/railways).
+
 # Introduction
 
 For the [CHAI project](http://www.chaiproject.org/) I wanted to look whether there were trains in our study area. Besides, I was curious about two data sources:
